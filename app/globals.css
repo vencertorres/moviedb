@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --padding: 1rem;
+  --scroll-padding: max(
+    var(--padding),
+    calc(var(--padding) + (100vw - 80rem) / 2)
+  );
+  --gradient: hsl(215, 18.18%, 12.94%) 0%, hsla(215, 18.18%, 12.94%, 0.987) 8.1%,
+    hsla(215, 18.18%, 12.94%, 0.951) 15.5%,
+    hsla(215, 18.18%, 12.94%, 0.896) 22.5%, hsla(215, 18.18%, 12.94%, 0.825) 29%,
+    hsla(215, 18.18%, 12.94%, 0.741) 35.3%,
+    hsla(215, 18.18%, 12.94%, 0.648) 41.2%,
+    hsla(215, 18.18%, 12.94%, 0.55) 47.1%, hsla(215, 18.18%, 12.94%, 0.45) 52.9%,
+    hsla(215, 18.18%, 12.94%, 0.352) 58.8%,
+    hsla(215, 18.18%, 12.94%, 0.259) 64.7%, hsla(215, 18.18%, 12.94%, 0.175) 71%,
+    hsla(215, 18.18%, 12.94%, 0.104) 77.5%,
+    hsla(215, 18.18%, 12.94%, 0.049) 84.5%,
+    hsla(215, 18.18%, 12.94%, 0.013) 91.9%, hsla(215, 18.18%, 12.94%, 0) 100%;
+}
+
+body {
+  color: #fff;
+  background: #1c2128;
+}
+
+@layer components {
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to top, var(--gradient));
+  }
+
+  @media (min-width: 64rem) {
+    .backdrop {
+      background-image: radial-gradient(
+        circle at top center,
+        transparent 40%,
+        #1c2128 65%
+      );
+    }
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --padding: 4rem;
+  }
+}
