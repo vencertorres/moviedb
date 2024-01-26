@@ -19,8 +19,8 @@ export default async function Home() {
         Your movie journey starts here.
       </h1>
 
-      <Carousel title="Trending" movies={trending} />
-      <Carousel title="What's Popular" movies={popular} />
+      <Carousel title="Trending" movies={trending.results} />
+      <Carousel title="What's Popular" movies={popular.results} />
     </main>
   );
 }

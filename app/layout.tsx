@@ -5,7 +5,7 @@ import Link from "next/link";
 import "./globals.css";
 import logo from "./logo.svg";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "MovieDB",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.variable}>
         <nav className="bg-[#1c2128]">
           <div className="mx-auto flex h-12 max-w-5xl items-center justify-between px-3 py-2">
             <Link href="/">
@@ -28,13 +28,13 @@ export default function RootLayout({
             <div className="space-x-4">
               <Link
                 href="/signin"
-                className="text-sm font-extrabold uppercase tracking-wider text-[#d8e0e8]"
+                className="text-sm uppercase tracking-wider text-[#d8e0e8]"
               >
                 Sign in
               </Link>
               <Link
                 href="/register"
-                className="text-sm font-extrabold uppercase tracking-wider text-[#d8e0e8]"
+                className="text-sm uppercase tracking-wider text-[#d8e0e8]"
               >
                 Register
               </Link>

@@ -3,14 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { media } from "../lib/api";
-import { MovieList } from "../lib/types";
+import { MovieListResult } from "../lib/types";
 
 export default function Carousel({
   title,
   movies,
 }: {
   title: string;
-  movies: MovieList;
+  movies: MovieListResult[];
 }) {
   return (
     <div>
@@ -18,7 +18,7 @@ export default function Carousel({
         {title}
       </h2>
       <div className="mb-8 flex h-[clamp(10em,_25vw,_20em)] snap-x snap-mandatory scroll-pl-[var(--scroll-padding)] gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[var(--scroll-padding)]">
-        {movies.results.map((movie) => (
+        {movies.map((movie) => (
           <Link
             key={movie.id}
             href={`/movies/${movie.id}`}

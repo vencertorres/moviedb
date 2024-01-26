@@ -16,6 +16,7 @@ export default function Backdrop({ movie }: { movie: MovieListResult }) {
         height={720}
         className="opacity-0 transition-opacity duration-500"
         onLoad={(e) => (e.currentTarget.style.opacity = "1")}
+        priority
       />
     </div>
   );
