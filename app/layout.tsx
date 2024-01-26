@@ -3,19 +3,25 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
+import { auth, signOut } from "./lib/auth";
 import logo from "./logo.svg";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "MovieDB",
+  title: {
+    template: "%s | MovieDB",
+    default: "MovieDB",
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body className={inter.variable}>
@@ -25,20 +31,33 @@ export default function RootLayout({
               <Image src={logo} alt="MovieDB" height={24} />
             </Link>
 
-            <div className="space-x-4">
-              <Link
-                href="/signin"
-                className="text-sm uppercase tracking-wider text-[#d8e0e8]"
+            {session ? (
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut();
+                }}
               >
-                Sign in
-              </Link>
-              <Link
-                href="/register"
-                className="text-sm uppercase tracking-wider text-[#d8e0e8]"
-              >
-                Register
-              </Link>
-            </div>
+                <button className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white">
+                  Log out
+                </button>
+              </form>
+            ) : (
+              <div className="space-x-4">
+                <Link
+                  href="/login"
+                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/signup"
+                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
           </div>
         </nav>
 

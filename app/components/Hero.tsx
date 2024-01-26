@@ -1,8 +1,22 @@
-import Image from "next/image";
-import { media } from "../lib/api";
-import { MovieDetail } from "../lib/types";
+"use client";
 
-export default function Hero({ movie }: { movie: MovieDetail }) {
+import type { Session } from "next-auth";
+import Image from "next/image";
+import Link from "next/link";
+import { add, remove } from "../lib/actions";
+import { media } from "../lib/api";
+import type { MovieDetail } from "../lib/types";
+import Button from "./Button";
+
+export default function Hero({
+  movie,
+  session,
+  inWatchlist,
+}: {
+  movie: MovieDetail;
+  session: Session | null;
+  inWatchlist: boolean;
+}) {
   return (
     <div className="grid-cols-[10rem,_1fr] lg:grid">
       <div className="relative after:absolute after:bottom-0 after:h-1/2 after:w-full after:bg-gradient-to-t after:from-[#1c2128] lg:col-[2/3] lg:after:h-full lg:after:w-[40rem] lg:after:bg-gradient-to-r">
@@ -11,6 +25,8 @@ export default function Hero({ movie }: { movie: MovieDetail }) {
           alt={movie.title}
           width={1280}
           height={720}
+          className="opacity-0 transition-opacity duration-500"
+          onLoad={(e) => (e.currentTarget.style.opacity = "1")}
         />
       </div>
 
@@ -30,6 +46,27 @@ export default function Hero({ movie }: { movie: MovieDetail }) {
             <div>({movie.vote_count})</div>
           </div>
           <p className="text-gray-300">{movie.overview}</p>
+
+          {session ? (
+            <form action={inWatchlist ? remove : add}>
+              <input type="hidden" name="movie_id" value={movie.id} />
+
+              <Button>
+                {inWatchlist ? "Remove from" : "Add to"} watchlist
+              </Button>
+            </form>
+          ) : (
+            <div className="mt-8 text-[#def]">
+              <Link href="/login" className="text-white underline">
+                Log in
+              </Link>{" "}
+              or{" "}
+              <Link href="/signup" className="text-white underline">
+                Sign up
+              </Link>{" "}
+              to add this to your watchlist.
+            </div>
+          )}
         </div>
       </div>
     </div>

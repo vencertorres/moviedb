@@ -1,9 +1,46 @@
 import Carousel from "@/app/components/Carousel";
 import Hero from "@/app/components/Hero";
 import { get } from "@/app/lib/api";
-import { MovieDetail } from "@/app/lib/types";
+import { auth } from "@/app/lib/auth";
+import { db } from "@/app/lib/db";
+import type { MovieDetail } from "@/app/lib/types";
+import { watchlist } from "@/db/schema";
+import { and, eq } from "drizzle-orm";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const movie = (await get(`/movie/${params.id}`, {
+    append_to_response: "images,recommendations,videos",
+  })) as MovieDetail;
+
+  return {
+    title: movie.title,
+  };
+}
 
 export default async function Movie({ params }: { params: { id: string } }) {
+  const session = await auth();
+
+  let inWatchlist = false;
+
+  if (session) {
+    const rows = await db
+      .select()
+      .from(watchlist)
+      .where(
+        and(
+          eq(watchlist.userId, Number(session.user?.id)),
+          eq(watchlist.movieId, Number(params.id)),
+        ),
+      );
+
+    inWatchlist = rows.length > 0;
+  }
+
   const movie = (await get(`/movie/${params.id}`, {
     append_to_response: "images,recommendations,videos",
   })) as MovieDetail;
@@ -34,7 +71,7 @@ export default async function Movie({ params }: { params: { id: string } }) {
 
   return (
     <main>
-      <Hero movie={movie} />
+      <Hero movie={movie} session={session} inWatchlist={inWatchlist} />
 
       <div className="mx-auto mb-8 grid max-w-7xl gap-8 p-[var(--padding)] lg:grid-cols-2">
         <iframe

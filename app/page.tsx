@@ -1,7 +1,7 @@
 import Backdrop from "./components/Backdrop";
 import Carousel from "./components/Carousel";
 import { get } from "./lib/api";
-import { MovieList } from "./lib/types";
+import type { MovieList } from "./lib/types";
 
 export const dynamic = "force-dynamic";
 
