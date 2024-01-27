@@ -19,6 +19,11 @@
     hsla(215, 18.18%, 12.94%, 0.104) 77.5%,
     hsla(215, 18.18%, 12.94%, 0.049) 84.5%,
     hsla(215, 18.18%, 12.94%, 0.013) 91.9%, hsla(215, 18.18%, 12.94%, 0) 100%;
+  --columns: 3;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -65,7 +70,19 @@ h6 {
   }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 640px) {
+  :root {
+    --columns: 4;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --columns: 5;
+  }
+}
+
+@media (min-width: 1024px) {
   :root {
     --padding: 4rem;
   }
