@@ -3,7 +3,7 @@ import Hero from "@/app/components/Hero";
 import { get } from "@/app/lib/api";
 import { auth } from "@/app/lib/auth";
 import { db } from "@/app/lib/db";
-import type { MovieDetail } from "@/app/lib/types";
+import type { MovieDetails } from "@/app/lib/types";
 import { watchlist } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 import type { Metadata } from "next";
@@ -15,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const movie = (await get(`/movie/${params.id}`, {
     append_to_response: "images,recommendations,videos",
-  })) as MovieDetail;
+  })) as MovieDetails;
 
   return {
     title: movie.title,
@@ -43,7 +43,7 @@ export default async function Movie({ params }: { params: { id: string } }) {
 
   const movie = (await get(`/movie/${params.id}`, {
     append_to_response: "images,recommendations,videos",
-  })) as MovieDetail;
+  })) as MovieDetails;
 
   const trailer =
     movie.videos.results.find(

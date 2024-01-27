@@ -32,16 +32,25 @@ export default async function RootLayout({
             </Link>
 
             {session ? (
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut();
-                }}
-              >
-                <button className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white">
-                  Log out
-                </button>
-              </form>
+              <div className="space-x-4">
+                <Link
+                  href="/watchlist"
+                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+                >
+                  Watchlist
+                </Link>
+                <form
+                  className="inline"
+                  action={async () => {
+                    "use server";
+                    await signOut();
+                  }}
+                >
+                  <button className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white">
+                    Log out
+                  </button>
+                </form>
+              </div>
             ) : (
               <div className="space-x-4">
                 <Link

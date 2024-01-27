@@ -23,7 +23,7 @@ export interface MovieListResult {
   vote_count: number;
 }
 
-export interface MovieDetail {
+export interface MovieDetails {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection?: any;

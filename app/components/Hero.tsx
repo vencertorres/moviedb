@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { add, remove } from "../lib/actions";
 import { media } from "../lib/api";
-import type { MovieDetail } from "../lib/types";
+import type { MovieDetails } from "../lib/types";
 import Button from "./Button";
 
 export default function Hero({
@@ -13,7 +13,7 @@ export default function Hero({
   session,
   inWatchlist,
 }: {
-  movie: MovieDetail;
+  movie: MovieDetails;
   session: Session | null;
   inWatchlist: boolean;
 }) {
