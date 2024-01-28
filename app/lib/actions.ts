@@ -8,6 +8,7 @@ import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { get } from "./api";
 import { auth, insertUserSchema, signIn } from "./auth";
 import { db } from "./db";
 
@@ -99,4 +100,8 @@ export async function remove(formData: FormData) {
     );
 
   revalidatePath(`/movies/${validatedFields.data.movieId}`);
+}
+
+export async function results(endpoint: string, page: number) {
+  return await get(endpoint, { page: String(page) });
 }
