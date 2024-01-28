@@ -1,12 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { results } from "../lib/actions";
-import { media } from "../lib/api";
 import type { MovieList } from "../lib/types";
+import MovieGrid from "./MovieGrid";
 
 function useIsVisible(element: RefObject<HTMLDivElement>) {
   const [state, setState] = useState(false);
@@ -60,24 +58,8 @@ export default function Results({ endpoint }: { endpoint: string }) {
 
   return (
     <div>
-      <div className="grid grid-cols-[repeat(var(--columns),_1fr)] gap-4">
-        {movies.results.map((movie) => (
-          <Link
-            key={movie.id}
-            href={`/movies/${movie.id}`}
-            className="block aspect-[2/3] snap-start"
-          >
-            <Image
-              src={media(500, movie.poster_path)}
-              alt={movie.title}
-              width={500}
-              height={750}
-              className="rounded opacity-0 transition-opacity duration-500"
-              onLoad={(e) => (e.currentTarget.style.opacity = "1")}
-            />
-          </Link>
-        ))}
-      </div>
+      <MovieGrid movies={movies.results} />
+
       {movies.page < movies.total_pages && (
         <div
           ref={container}

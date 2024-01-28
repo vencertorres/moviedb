@@ -34,6 +34,12 @@ export default async function RootLayout({
             {session ? (
               <div className="space-x-4">
                 <Link
+                  href="/search"
+                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+                >
+                  Search
+                </Link>
+                <Link
                   href="/watchlist"
                   className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
                 >
