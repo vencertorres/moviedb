@@ -31,48 +31,51 @@ export default async function RootLayout({
               <Image src={logo} alt="MovieDB" height={24} />
             </Link>
 
-            {session ? (
-              <div className="space-x-4">
-                <Link
-                  href="/search"
-                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
-                >
-                  Search
-                </Link>
-                <Link
-                  href="/watchlist"
-                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
-                >
-                  Watchlist
-                </Link>
-                <form
-                  className="inline"
-                  action={async () => {
-                    "use server";
-                    await signOut();
-                  }}
-                >
-                  <button className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white">
-                    Log out
-                  </button>
-                </form>
-              </div>
-            ) : (
-              <div className="space-x-4">
-                <Link
-                  href="/login"
-                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/signup"
-                  className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
-                >
-                  Sign up
-                </Link>
-              </div>
-            )}
+            <div className="space-x-4">
+              <Link
+                href="/search"
+                className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+              >
+                Search
+              </Link>
+
+              {session ? (
+                <>
+                  <Link
+                    href="/watchlist"
+                    className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+                  >
+                    Watchlist
+                  </Link>
+                  <form
+                    className="inline"
+                    action={async () => {
+                      "use server";
+                      await signOut();
+                    }}
+                  >
+                    <button className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white">
+                      Log out
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+                  >
+                    Log in
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="text-sm uppercase tracking-wider text-[#d8e0e8] hover:text-white"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </nav>
 
