@@ -6,7 +6,7 @@ import Link from "next/link";
 import { add, remove } from "../lib/actions";
 import { media } from "../lib/api";
 import type { MovieDetails } from "../lib/types";
-import Button from "./Button";
+import Button from "./ui/Button";
 
 export default function Hero({
   movie,
@@ -51,7 +51,7 @@ export default function Hero({
             <form action={inWatchlist ? remove : add}>
               <input type="hidden" name="movie_id" value={movie.id} />
 
-              <Button>
+              <Button className="mt-2">
                 {inWatchlist ? "Remove from" : "Add to"} watchlist
               </Button>
             </form>
